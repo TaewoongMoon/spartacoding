@@ -4,8 +4,10 @@ client = MongoClient(url)
 db = client['heroku_nxq5fr78']
 collection = db['test']
 
-#collection.insert_one({'a':'b'})
+collection.insert_one({'a':'b'})
 
 rows = collection.find({})
+collection.update_one
+collection.delete_one
 for row in rows:
     print(row)
