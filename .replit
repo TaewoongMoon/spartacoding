@@ -1,2 +1,73 @@
 language = "python3"
 run = ""
+
+#Q1 IRIS Data셋 불러오기
+import requests
+r= requests.get('https://raw.githubusercontent.com/ghk829/sparta/master/iris.json')
+rjson = r.json()
+
+#Q2 IRIS Data 셋 갯수 알아보기
+print(len(rjson['data']))
+
+#Q3 IRIS heroku의 mlab에서 iris라는 collection을 만들고, data라는 리스트에 있는 딕셔너리들을 하나씩 MongoDB에 넣는다
+from pymongo import MongoClient
+url = 'mongodb://Moony:jullie6096@ds011459.mlab.com:11459/heroku_nxq5fr78?retryWrites=false'
+client = MongoClient(url)
+db = client['heroku_nxq5fr78']
+collection = db['iris']
+
+
+# collection.insert_many(rjson['data'])
+# rows = collection.find({})
+# for row in rows:
+#   print(row)
+
+
+#Q3-1 insert_one을 넣던중 테스트 하는 과정에서 넣은것들은 지웁니다.
+
+
+#Q4. MongoDb의 iris 데이터 중 species가 virginica인 document의 개수를 구한다.
+# rows = collection.find()
+# result = []
+# for row in rows:
+#   if 'species' in row:
+#     if row['species'] == 'virginica':
+#       result.append(row['species'])
+# print(len(result))
+
+#Q5. MongoDb의 iris 데이터 중 sepalLength의 최대값을 구합니다.
+# rows = collection.find()
+# result = []
+# for row in rows:
+#   if 'sepalLength' in row:
+#     if row['sepalLength'] > 6:
+#       result.append(row['sepalLength'])
+
+# max_sepalLength = max(result)
+# print(max_sepalLength)
+
+#Q6. MongoDb의 iris 데이터 중 sepalWidth의 최소값을 구합니다.
+# rows = collection.find()
+# result = []
+# for row in rows:
+#   if 'sepalLength' in row:
+#     if row['sepalLength'] > 0:
+#       result.append(row['sepalLength'])
+
+# min_sepalLength = min(result)
+# print(min_sepalLength)
+
+#Q7.MongoDb의 iris 데이터 중 species가 virginica인 document 중 sepalLength의 최대값을 구합니다.
+
+# rows = collection.find()
+# result = []
+# for row in rows:
+#   if 'species' in row:
+#     if row['species'] == "virginica":
+# print
+
+# Q8.MongoDb의 iris 데이터 중  species의 종류 개수를 구합니다. (선택)
+from collections import Counter
+all_collection = list(collection.find())
+counter = Counter(all_collection)
+print(counter)
